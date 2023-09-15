@@ -20,7 +20,7 @@ from mmcv.runner import get_dist_info, init_dist
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a model')
-    parser.add_argument('--config',default='D:/MedFM/configs/swin-b_vpt_try_update_exp1/', help='train config file path')
+    parser.add_argument('--config',default=r'../configs/swin-b_vpt_try_update_exp1/', help='train config file path')
     parser.add_argument('--work-dir', help='the dir to save logs and models')
     parser.add_argument(
         '--resume-from', help='the checkpoint file to resume from')
@@ -90,7 +90,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    tracking = ["endo","chest","colon"]
+    tracking = ["chest","colon","endo"]
     for track in tracking:
         list_track_dir = args.config + track + "/"
         list_dir = os.listdir(list_track_dir)
