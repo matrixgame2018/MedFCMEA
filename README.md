@@ -10,10 +10,6 @@ $ pip install mmcls==0.25.0 openmim scipy scikit-learn ftfy regex tqdm
 $ mim install mmcv-full==1.6.0
 ```
 
-We suggest you install PyTorch successfully first, then install OpenMMLab packages and their dependencies.
-
-Moreover, you can use other Computer Vision or other foundation models such as [EVA](https://github.com/baaivision/EVA) and [CLIP](https://github.com/openai/CLIP).
-
 ### Data preparation
 
 Prepare data following [MMClassification](https://github.com/open-mmlab/mmclassification). The data structure looks like below:
