@@ -1,12 +1,5 @@
 # NeurIPS 2023 - MedFM: Foundation Model Prompting for Medical Image Classification Challenge 2023
 
-A naive baseline and submission demo for the [Foundation Model Prompting for Medical Image Classification Challenge 2023 (MedFM)](https://medfm2023.grand-challenge.org/medfm2023/).
-
-## ✨ Notification
-
-Please check out [master branch](https://github.com/openmedlab/MedFM/tree/master). Third party implementation of MedFMC baseline is supported! It is based on the [MMPreTrain](https://github.com/open-mmlab/mmpretrain), with backbone of **`ViT-cls`**, **`ViT-eva02`**, **`ViT-dinov2`**, **`Swin-cls`** and **`ViT-clip`**.
-More details could be found in its [document](https://mmpretrain.readthedocs.io/en/latest/index.html). Thanks [Ezra-Yu](https://github.com/Ezra-Yu) for this excellent work.
-
 ## 🛠️ Installation
 
 Install requirements by
@@ -20,74 +13,6 @@ $ mim install mmcv-full==1.6.0
 We suggest you install PyTorch successfully first, then install OpenMMLab packages and their dependencies.
 
 Moreover, you can use other Computer Vision or other foundation models such as [EVA](https://github.com/baaivision/EVA) and [CLIP](https://github.com/openai/CLIP).
-
-## 📊 Results
-
-The results of ChestDR, ColonPath and Endo in MedFMC dataset and their corresponding configs on each task are shown as below.
-
-### Few-shot Learning Results
-
-We utilize [Visual Prompt Tuning](https://github.com/KMnP/vpt) method as the few-shot learning baseline, whose backbone is Swin Transformer.
-The results are shown as below:
-
-#### ChestDR
-
-| N Shot | Crop Size | Epoch |  mAP  |  AUC  |                                      Config                                      |
-| :----: | :-------: | :---: | :---: | :---: | :------------------------------------------------------------------------------: |
-|   1    |  384x384  |  20   | 13.14 | 56.49 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_1-shot_chest_adamw.py)  |
-|   5    |  384x384  |  20   | 17.05 | 64.86 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_5-shot_chest_adamw.py)  |
-|   10   |  384x384  |  20   | 19.01 | 66.68 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_10-shot_chest_adamw.py) |
-
-#### ColonPath
-
-| N Shot | Crop Size | Epoch |  Acc  |  AUC  |                                      Config                                      |
-| :----: | :-------: | :---: | :---: | :---: | :------------------------------------------------------------------------------: |
-|   1    |  384x384  |  20   | 77.60 | 84.69 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_1-shot_colon_adamw.py)  |
-|   5    |  384x384  |  20   | 89.29 | 96.07 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_5-shot_colon_adamw.py)  |
-|   10   |  384x384  |  20   | 91.21 | 97.14 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_10-shot_colon_adamw.py) |
-
-#### Endo
-
-| N Shot | Crop Size | Epoch |  mAP  |  AUC  |                                     Config                                      |
-| :----: | :-------: | :---: | :---: | :---: | :-----------------------------------------------------------------------------: |
-|   1    |  384x384  |  20   | 19.70 | 62.18 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_1-shot_endo_adamw.py)  |
-|   5    |  384x384  |  20   | 23.88 | 67.48 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_5-shot_endo_adamw.py)  |
-|   10   |  384x384  |  20   | 25.62 | 71.41 | [config](configs/swin-b_vpt/in21k-swin-b_vpt5_bs4_lr5e-2_10-shot_endo_adamw.py) |
-
-### Transfer Learning on 20% (Fully Supervised Task)
-
-Noted that MedFMC mainly focuses on few-shot learning i.e., transfer learning task.
-Thus, fully supervised learning tasks below only use 20% training data to make corresponding comparisons.
-
-#### ChestDR
-
-|    Backbone     | Crop Size | Epoch |  mAP  |  AUC  |                        Config                         |
-| :-------------: | :-------: | :---: | :---: | :---: | :---------------------------------------------------: |
-|   DenseNet121   |  384x384  |  20   | 24.48 | 75.25 |     [config](configs/densenet/dense121_chest.py)      |
-| EfficientNet-B5 |  384x384  |  20   | 29.08 | 77.21 |    [config](configs/efficientnet/eff-b5_chest.py)     |
-|     Swin-B      |  384x384  |  20   | 31.07 | 78.56 | [config](configs/swin_transformer/swin-base_chest.py) |
-
-#### ColonPath
-
-|    Backbone     | Crop Size | Epoch |  Acc  |  AUC  |                        Config                         |
-| :-------------: | :-------: | :---: | :---: | :---: | :---------------------------------------------------: |
-|   DenseNet121   |  384x384  |  20   | 92.73 | 98.27 |     [config](configs/densenet/dense121_colon.py)      |
-| EfficientNet-B5 |  384x384  |  20   | 94.04 | 98.58 |    [config](configs/efficientnet/eff-b5_colon.py)     |
-|     Swin-B      |  384x384  |  20   | 94.68 | 98.35 | [config](configs/swin_transformer/swin-base_colon.py) |
-
-#### Endo
-
-|    Backbone     | Crop Size | Epoch |  mAP  |  AUC  |                        Config                        |
-| :-------------: | :-------: | :---: | :---: | :---: | :--------------------------------------------------: |
-|   DenseNet121   |  384x384  |  20   | 41.13 | 80.19 |     [config](configs/densenet/dense121_endo.py)      |
-| EfficientNet-B5 |  384x384  |  20   | 36.95 | 78.23 |    [config](configs/efficientnet/eff-b5_endo.py)     |
-|     Swin-B      |  384x384  |  20   | 41.38 | 79.42 | [config](configs/swin_transformer/swin-base_endo.py) |
-
-## 🎫 License
-
-This project is released under the [Apache 2.0 license](LICENSE).
-
-## 🙌 Usage
 
 ### Data preparation
 
@@ -197,68 +122,4 @@ result/
 ├── chest_1-shot_submission.csv
 ├── chest_5-shot_submission.csv
 ├── chest_10-shot_submission.csv
-```
-
-Then using `zip` to make them as `.zip` file(i.e., `result_sample.zip` in `./data_backup` folder) and upload it to submission site of [Grand Challenge MedFMC Validation Phase](https://medfm2023.grand-challenge.org/evaluation/challenge-validation-results-submission-only/submissions/create/).
-
-## 🏗️ Using MedFMC repo with Docker (TO BE DONE)
-
-More details of Docker could be found in this [tutorial](https://nbviewer.org/github/ericspod/ContainersForCollaboration/blob/master/ContainersForCollaboration.ipynb).
-
-### Preparation of Docker
-
-We provide a [Dockerfile](./docker/Dockerfile) to build an image. Ensure that your [docker version](https://docs.docker.com/engine/install/) >=19.03.
-
-```
-# build an image with PyTorch 1.11, CUDA 11.3
-# If you prefer other versions, just modified the Dockerfile
-docker build -t medfmc docker/
-```
-
-Run it with
-
-```
-docker run --gpus all --shm-size=8g -it -v {DATA_DIR}:/medfmc/data medfmc
-```
-
-### Build Docker and make sanity test
-
-The submitted docker will be evaluated by the following command:
-
-```bash
-docker container run --gpus all --shm-size=8g -m 28G -it --name teamname --rm -v $PWD:/medfmc_exp -v $PWD/data:/medfmc_exp/data teamname:latest /bin/bash -c "sh /medfmc_exp/run.sh"
-```
-
-- `--gpus`: specify the available GPU during inference
-- `-m`: spedify the maximum RAM
-- `--name`: container name during running
-- `--rm`: remove the container after running
-- `-v $PWD:/medfmc_exp`: map local codebase folder to Docker `medfmc_exp` folder.
-- `-v $PWD/data:/medfmc_exp/data`: map local codebase folder to Docker `medfmc_exp/data` folder.
-- `teamname:latest`: docker image name (should be `teamname`) and its version tag. **The version tag should be `latest`**. Please do not use `v0`, `v1`... as the version tag
-- `/bin/bash -c "sh run.sh"`: start the prediction command.
-
-Assuming the team name is `baseline`, the Docker build command is
-
-```shell
-docker build -t baseline .
-```
-
-> During the inference, please monitor the GPU memory consumption using `watch nvidia-smi`. The GPU memory consumption should be less than 10G. Otherwise, it will run into an OOM error on the official evaluation server.
-
-### 3) Save Docker
-
-```shell
-docker save baseline | gzip -c > baseline.tar.gz
-```
-
-## 🖊️ Citation
-
-```
-@article{wang2023medfmc,
-  title={MedFMC: A Real-world Dataset and Benchmark For Foundation Model Adaptation in Medical Image Classification},
-  author={Wang, Dequan and Wang, Xiaosong and Wang, Lilong and Li, Mengzhang and Da, Qian and Liu, Xiaoqiang and Gao, Xiangyu and Shen, Jun and He, Junjun and Shen, Tian and others},
-  journal={arXiv preprint arXiv:2306.09579},
-  year={2023}
-}
 ```
