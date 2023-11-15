@@ -65,45 +65,6 @@ and few-shot learning task.
 The config files of fully supervised transfer learning task are stored at `./configs/densenet`, `./configs/efficientnet`, `./configs/vit-base` and
 `./configs/swin_transformer` folders, respectively. The config files of few-shot learning task are stored at `./configs/ablation_exp` and `./configs/vit-b16_vpt` folders.
 
-For the training and testing, you can directly use commands below to train and test the model:
-
-```bash
-# you need to export path in terminal so the `custom_imports` in config would work
-export PYTHONPATH=$PWD:$PYTHONPATH
-# Training
-# you can choose a config file like `configs/vit-b16_vpt/in21k-vitb16_vpt1_bs4_lr6e-4_1-shot_chest.py` to train its model
-python tools/train.py $CONFIG
-
-# Evaluation
-# Endo and ChestDR utilize mAP as metric
-python tools/test.py $CONFIG $CHECKPOINT --metrics mAP
-python tools/test.py $CONFIG $CHECKPOINT --metrics AUC_multilabel
-# Colon utilizes accuracy as metric
-python tools/test.py $CONFIG $CHECKPOINT --metrics accuracy --metric-options topk=1
-python tools/test.py $CONFIG $CHECKPOINT --metrics AUC_multiclass
-
-```
-
-The repository is built upon [MMClassification/MMPretrain](https://github.com/open-mmlab/mmpretrain/tree/master). More details could be found in its [document](https://mmpretrain.readthedocs.io/en/mmcls-0.x/).
-
-### Generating Submission results of Validation Phase
-
-Noted:
-
-- The order of filanames of all CSV files must follow the order of provided `colon_val.csv`, `chest_val.csv` and `endo_val.csv`! You can see files in `./data_backup/result_sample` for more details.
-- The name of CSV files in `result.zip` must be the same names `xxx_N-shot_submission.csv` below.
-
-Run
-
-```bash
-python tools/test_prediction.py $DATASETPATH/test_WithoutLabel.txt $DATASETPATH/images/ $CONFIG $CHECKPOINT --output-prediction $DATASET_N-shot_submission.csv
-```
-
-For example:
-
-```bash
-python tools/test_prediction.py data/MedFMC/endo/test_WithoutLabel.txt data/MedFMC/endo/images/ $CONFIG $CHECKPOINT --output-prediction endo_10-shot_submission.csv
-```
 
 You can generate all prediction results of `endo_N-shot_submission.csv`, `colon_N-shot_submission.csv` and `chest_N-shot_submission.csv` and zip them into `result.zip` file. Then upload it to Grand Challenge website.
 
