@@ -1,5 +1,8 @@
 # NeurIPS 2023 - MedFM: Foundation Model Prompting for Medical Image Classification Challenge 2023
 
+
+## Congratulation MedFCMA gained the 4th place !!!!
+
 ## 🛠️ Installation
 
 Install requirements by
